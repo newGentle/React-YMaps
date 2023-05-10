@@ -1,18 +1,26 @@
 import * as React from "react";
 import axios from "axios";
 import Table from 'react-bootstrap/Table';
+import '../styles/Weather.css'
 
 function Weather(props) {
 
     const [isLoading, setLoading] = React.useState(true);
     const [weather, setWeather] = React.useState([]);
 
+    const getDate = (dt) => {
+        let _date = new Date(dt * 1000)
+        let hours = `${_date.getDate()}.${_date.getMonth()}.${_date.getFullYear()}`;
+        let newDate = _date.toLocaleString();
+        return newDate;
+    }
+
     React.useEffect(() => {
 
         const getWeather = async () => {
             const { data } = await axios
                 .get(
-                    `https://api.openweathermap.org/data/2.5/forecast?lat=${props.coords[0]}&lon=${props.coords[1]}&cnt=1&lang=uz&units=metric&appid=1808d2c3e248867be50cfc0f471225f3`
+                    `https://api.openweathermap.org/data/2.5/forecast?lat=${props.coords[0]}&lon=${props.coords[1]}&cnt=40&exclude=current&lang=uz&units=metric&appid=1808d2c3e248867be50cfc0f471225f3`
                 )
                 .catch((err) => console.log(err));
             setWeather([data]);
@@ -42,19 +50,18 @@ function Weather(props) {
                 </tr>
             </thead>
             <tbody>
-            {weather.map((data) => (
-                <tr key={data.city.id}>
-                    <td>{parseInt(data.list[0].main.temp_min)} &#8451;</td>
-                    <td>{parseInt(data.list[0].main.temp)} &#8451;</td>
-                    <td>{parseInt(data.list[0].main.temp_max)} &#8451;</td>
+            {weather[0].list.map((data) => (
+                <tr key={data.dt}>
+                    <td>{parseInt(data.main.temp_min)} &#8451;</td>
+                    <td>{parseInt(data.main.temp)} &#8451;</td>
+                    <td>{parseInt(data.main.temp_max)} &#8451;</td>
                     <td> <img
-                        src={`http://openweathermap.org/img/w/${data.list[0].weather[0].icon}.png`}
+                        src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`}
                         alt="weather-icon"
                     />
-                    {data.list[0].weather[0].main}
                     </td>
-                    <td>{data.list[0].wind.speed} м.сек.</td>
-                    <td>{data.list[0].dt_txt.slice(0,10)}</td>
+                    <td>{data.wind.speed} м.сек.</td>
+                    <td>{getDate(data.dt)}</td>
                     </tr>
             ))}
             </tbody>

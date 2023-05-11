@@ -1,3 +1,8 @@
 .table {
     margin-top: 25px;
 }
+
+.table tr td {
+    vertical-align: middle;
+    text-align: center;
+}

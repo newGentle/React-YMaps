@@ -1,6 +1,6 @@
 # Using Ymaps and openweathermap API in React
 
-Need Ymaps and openweathermap APIkeys for properly run the project
+Needs Ymaps APIkey and openweathermap APIkey for properly running the project
 
 # Getting Started with Create React App
 

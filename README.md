@@ -1,3 +1,7 @@
+# Using Ymaps and openweathermap API in React
+
+Need Ymaps and openweathermap APIkeys for properly run the project
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
